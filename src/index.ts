@@ -1,16 +1,8 @@
 import {CsvFileReader} from "./CsvFileReader";
+import {MatchResult} from "./MatchResult";
 
 const reader = new CsvFileReader("football.csv"); 
 reader.read()
-
-// enum automatically creates a new Type called MatchResult
-// enums are useful to tell other devs in the team that these are closely related values. Use only when we know all
-// the possible outcomes - cannot dynamically change an enum config during runtime.
-enum MatchResult {
-  HomeWin = "H",
-  AwayWin = "A",
-  Draw = "D",
-};
 
 let manUnitedWins = 0;
 
