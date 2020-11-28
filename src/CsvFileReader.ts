@@ -1,14 +1,15 @@
 import fs from "fs";
-import { dateStringToDate } from "./utils";
-import {MatchResult} from "./MatchResult";
 
-// this is a tuple - array of different types, where order matters
-type MatchData = [Date, string, string, number, number, MatchResult, string];
-
-export class CsvFileReader {
-  data: MatchData[] = [];
+// T is a generic type. This is just a name convention - it can be called anything.
+// A genetic is a placeholder type. It's up to the child class to pass in a type, as an argument, that in effect
+// replaces T.
+export abstract class CsvFileReader<T> {
+  data: T[] = [];
 
   constructor(public filename: string) {}
+
+  // refactor to helper method to make this class more reusable and convert to abstract method
+  abstract mapRow(row: string[]): T
 
   read(): void {
     this.data = fs
@@ -20,17 +21,7 @@ export class CsvFileReader {
       .map((row: string): string[] => {
         return row.split(",");
       })
-      .map((row: string[]): MatchData => {
-        // row: 10/08/2018,Man United,Leicester,2,1,H,A Marriner
-        return [
-          dateStringToDate(row[0]),
-          row[1],
-          row[2],
-          parseInt(row[3]),
-          parseInt(row[4]),
-          row[5] as MatchResult, // type assertion - we specifically tell Typescript what form this should take
-          row[6]
-        ];
-      });
+      .map(this.mapRow);
   }
+
 }
