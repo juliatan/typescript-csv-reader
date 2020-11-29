@@ -1,7 +1,7 @@
 import fs from "fs";
 
 // T is a generic type. This is just a name convention - it can be called anything.
-// A genetic is a placeholder type. It's up to the child class to pass in a type, as an argument, that in effect
+// A generic is a placeholder type. It's up to the child class to pass in a type, as an argument, that in effect
 // replaces T.
 export abstract class CsvFileReader<T> {
   data: T[] = [];

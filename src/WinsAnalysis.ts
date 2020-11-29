@@ -2,7 +2,7 @@ import { Analyser } from "./Summary";
 import { MatchData } from "./MatchData";
 import { MatchResult } from "./MatchResult";
 
-// implements is option. Asks Typescript for help to ensure we're creating this class which at a minimum contains
+// implements is optional. Asks Typescript for help to ensure we're creating this class which at a minimum contains
 // the types an Analyser needs
 export class WinsAnalysis implements Analyser {
   constructor(public teamName: string) {}

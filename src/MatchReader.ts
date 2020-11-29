@@ -1,17 +1,21 @@
 import { MatchResult } from "./MatchResult";
 import { dateStringToDate } from "./utils";
 import { MatchData } from "./MatchData";
-
-interface DataReader {
-  read(): void;
-
-  data: string[][];
-}
+import { CsvFileReader } from "./CsvFileReader";
 
 // e.g. MatchReader might want to load data from a CSV or an API. As long as the CSV class or API class matches the
 // DataReader interface, MatchReader can interface with it.
+interface DataReader {
+  read(): void;
+  data: string[][];
+}
 
 export class MatchReader {
+  // static methods allow us to call it directly without having to create an instance of the class
+  static fromCsv(filename: string): MatchReader {
+    return new MatchReader(new CsvFileReader(filename));
+  }
+
   matches: MatchData[] = [];
 
   constructor(public reader: DataReader) {}
